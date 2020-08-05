@@ -1,3 +1,7 @@
+"""
+Hash Tables
+--------------------------------------------
+"""
 HASH_DATA_SIZE = 8     # O(1) over the HASH_DATA_SIZE
 hash_data = [None] * HASH_DATA_SIZE
 
@@ -78,6 +82,10 @@ Slot Index    Chain (linked list)
     2b. If not, return None
 """
 
+"""
+Collision Handling with Linked Lists
+-----------------------------------------------
+"""
 class Node:
     def __init__(self, value):
         self.value = value
@@ -125,6 +133,8 @@ class LinkedList:
         return None
 
 """
+Resizing & Load Factors
+----------------------------------------------
 when you PUT:
     if the load factor > 0.7:
         double the size of the array capacity
@@ -132,11 +142,14 @@ when you PUT:
             PUT in the new array
 """
 
-# PRACTICE PROBLEM
-# Add up and print the sum of the all of the minimum elements of each inner array:
-# You may use whatever programming language you'd like.
-# Verbalize your thought process as much as possible before writing any code.
-# Run through the UPER problem solving framework while going through your thought process.
+"""
+PRACTICE PROBLEM
+-----------------------------------------------
+Add up and print the sum of the all of the minimum elements of each inner array:
+You may use whatever programming language you'd like.
+Verbalize your thought process as much as possible before writing any code.
+Run through the UPER problem solving framework while going through your thought process.
+"""
 
 def add_min(nums):
     total = 0
@@ -161,4 +174,137 @@ test_stretch = [
 ]
 # The expected output for the above input is:
 # 8 + 4 + 90 + -1 + 9 + -7 + -56 + -6 + 201 + 0 + 18 = 260
-print(add_min(test_stretch))
+#print(add_min(test_stretch))
+
+"""
+Fibonacci Sequence (Recursive)
+----------------------------------------------
+"""
+cache = {} # store values in the cache
+
+def fib(n):
+    if n <= 1:
+        return n
+
+    if n not in cache: # avoid having to recompute values each time
+        cache[n] = fib(n-1) + fib(n-2)
+
+    return cache[n]
+
+# print(f"{fib(99)}")
+
+"""
+Sorting Elements
+----------------------------------------------
+"""
+d = {
+    "foo": 12,
+    "bar": 17,
+    "qux": 2
+}
+# sort by keys
+items = list(d.items())
+items.sort()
+
+# sort by values
+def fun1(e):
+    return e[1]
+
+items.sort(key=fun1)
+
+# same as:
+# items.sort(key=lambda e: e[1])
+
+# print(items)
+
+"""
+Histogram
+---------------------------------------------
+"""
+def letter_count(s):
+    d = {}
+
+    for c in s:
+        if c.isspace():
+            continue
+
+        c = c.lower()
+
+        if c not in d:
+            d[c] = 0
+        d[c] += 1
+
+    return d
+
+# print(letter_count("Hello"))
+
+def print_sorted_letter_count(s):
+    d = letter_count(s)
+
+    items = list(d.items())
+
+    items.sort(key=lambda e: e[1], reverse=True)
+
+    for i in items:
+        print(f"{i[0]}: {i[1]}")
+
+    return items
+
+# print_sorted_letter_count("hello")
+
+"""
+Caesar Cipher
+----------------------------------
+"""
+encode_table = {
+    'A': 'H',
+    'B': 'Z',
+    'C': 'Y',
+    'D': 'W',
+    'E': 'O',
+    'F': 'R',
+    'G': 'J',
+    'H': 'D',
+    'I': 'P',
+    'J': 'T',
+    'K': 'I',
+    'L': 'G',
+    'M': 'L',
+    'N': 'C',
+    'O': 'E',
+    'P': 'X',
+    'Q': 'K',
+    'R': 'U',
+    'S': 'N',
+    'T': 'F',
+    'U': 'A',
+    'V': 'M',
+    'W': 'B',
+    'X': 'Q',
+    'Y': 'V',
+    'Z': 'S'
+}
+
+decode_table = {}
+
+def encode(s):
+    r = ""
+
+    for c in s:
+        r += encode_table[c]
+
+    return r
+
+for k, v in encode_table.items():
+    decode_table[v] = k
+
+def decode(s):
+    r= ""
+
+    for c in s:
+        r += decode_table[c]
+    
+    return r
+
+print(encode("GOATS"))
+print(decode("JEHFN"))

@@ -1,7 +1,13 @@
 def no_dups(s):
-    # Your code here
+    # input: a string of words with spaces (only a-z characters)
+    # output: string with no duplicates
+    # solution must be O(n)
+    d = {}
 
+    for w in s.split():
+        d[w] = None
 
+    return ' '.join(d.keys())
 
 if __name__ == "__main__":
     print(no_dups(""))
